@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automatización de Universidades</title>
+    <style>
+         /* Estilos para el cuerpo de la página */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+
+        /* Estilos para el encabezado */
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        /* Estilos para el mosaico utilizando CSS Grid */
+        .mosaico {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 5fr)); /* Columnas responsivas */
+            gap: 20px;
+        }
+
+        /* Estilos para cada universidad */
+        .universidad {
+            text-align: center;
+            background-color: #ffffff;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        /* Estilos para las imágenes */
+        .universidad img {
+            max-width: 100%; /* Ajustar el tamaño máximo de la imagen al contenedor */
+            height: auto; /* Para mantener la relación de aspecto */
+        }
+
+        /* Estilos para el contenido dentro de cada universidad */
+        .contenido {
+            margin-top: 20px;
+        }
+
+        /* Estilos para los botones */
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 20px; /* Espaciado inferior para separar los botones */
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Automatización de Universidades</h1>
+
+    <!-- Botón para abrir el archivo Excel -->
+    <div style="text-align: center; margin-top: 20px;">
+        <button onclick="abrirExcel()">Abrir Excel</button>
+    </div>
+
+
+    <!-- Botón para automatizar universidades -->
+    <div style="text-align: center; margin-top: 20px;">
+        <button onclick="automatizarUniversidades()">Automatizar Universidades</button>
+    </div>
+
+    <!-- Select para filtrar por carrera -->
+    <div style="text-align: center; margin-top: 20px;">
+        <select id="carreraSelect">
+            <option value="">Seleccione una carrera</option>
+            <option value="Químicos">Químicos</option>
+            <option value="Médicos Veterinarios">Médicos Veterinarios</option>
+            <option value="Administradores">Administradores</option>
+            <option value="Economía">Economía</option>
+            <option value="salud">Área de Salud y Medicina</option>
+            <option value="Enfermería">Enfermería</option> <!-- Nueva opción -->
+        </select>
+        <button id="filtrarBtn">Filtrar por carrera</button>
+    </div>
+
+    <!-- Lista de universidades filtradas -->
+    <ul id="universidadesFiltradas"></ul>
+
+    <div class="mosaico" id="mosaicoUniversidades">
+        {% for universidad in universidades %}
+            <!-- Universidad 1 -->
+            <div class="universidad">
+                <img src="{{ url_for('static', filename='img/areandina.gif') }}" alt="Imagen Universidad 1">
+                <div class="contenido">
+                    <h2>Areandina</h2>
+                    <button onclick="enviarSolicitud('Areandina')">Enviar Solicitud</button>
+                </div>
+            </div>
+
+            <!-- Universidad 2 -->
+            <div class="universidad">
+                <img src="{{ url_for('static', filename='img/SimonBolivar.gif') }}" alt="Imagen Universidad 2">
+                <div class="contenido">
+                    <h2>Simon Bolivar</h2>
+                    <button onclick="enviarSolicitud('Simonbolivar')">Enviar Solicitud</button>
+                </div>
+            </div>
+
+            <!-- Universidad 3 -->
+            <div class="universidad">
+                <img src="{{ url_for('static', filename='img/U.catolica.gif') }}" alt="Imagen Universidad 3">
+                <div class="contenido">
+                    <h2>U. Catolica</h2>
+                    <button onclick="enviarSolicitud('U catolica')">Enviar Solicitud</button>
+                </div>
+            </div>
+
+            <!-- Universidad 4 -->
+            <div class="universidad">
+                <img src="{{ url_for('static', filename='img/AntonioNariño.gif') }}" alt="Imagen Universidad 4">
+                <div class="contenido">
+                    <h2>Antonio Nariño</h2>
+                    <button onclick="enviarSolicitud('Antonio Nariño')">Enviar Solicitud</button>
+                </div>
+            </div>
+            <div class="universidad">
+                <img src="{{ url_for('static', filename='img/cooperativa.gif') }}" alt="Imagen Universidad 4">
+                <div class="contenido">
+                    <h2>U. Cooperativa</h2>
+                    <button onclick="enviarSolicitud('cooperativa')">Enviar Solicitud</button>
+                </div>
+            </div>
+            <div class="universidad">
+                <img src="{{ url_for('static', filename='img/santiago.gif') }}" alt="Imagen Universidad 4">
+                <div class="contenido">
+                    <h2>U. Santiago de Cali</h2>
+                    <button onclick="enviarSolicitud('santiago')">Enviar Solicitud</button>
+                </div>
+            </div>
+            <div class="universidad">
+                <img src="{{ url_for('static', filename='img/san buenaventura.gif') }}" alt="Imagen Universidad 4">
+                <div class="contenido">
+                    <h2>U. San Buenaventura Cali</h2>
+                    <button onclick="enviarSolicitud('San buenaventura')">Enviar Solicitud</button>
+                </div>
+            </div>
+            <div class="universidad">
+                <img src="{{ url_for('static', filename='img/icesi.gif') }}" alt="Imagen Universidad 4">
+                <div class="contenido">
+                    <h2>icesi</h2>
+                    <button onclick="enviarSolicitud('icesi')">Enviar Solicitud</button>
+                </div>
+            </div>
+            <div class="universidad">
+                <img src="{{ url_for('static', filename='img/Uao.gif') }}" alt="Imagen Universidad 4">
+                <div class="contenido">
+                    <h2>U.Autonoma de ocidente</h2>
+                    <button onclick="enviarSolicitud('Uao')">Enviar Solicitud</button>
+                </div>
+            </div>
+            <div class="universidad">
+                <img src="{{ url_for('static', filename='img/ElBosque.gif') }}" alt="Imagen Universidad 4">
+                <div class="contenido">
+                    <h2>U. El Bosque</h2>
+                    <button onclick="enviarSolicitud('Elbosque')">Enviar Solicitud</button>
+                </div>
+            </div>
+            <div class="universidad">
+                <img src="{{ url_for('static', filename='img/unisangil.gif') }}" alt="Imagen Universidad 4">
+                <div class="contenido">
+                    <h2>Unisangil</h2>
+                    <button onclick="enviarSolicitud('unisangil')">Enviar Solicitud</button>
+                </div>
+            </div>
+            <div class="universidad">
+                <img src="{{ url_for('static', filename='img/unad.gif') }}" alt="Imagen Universidad 4">
+                <div class="contenido">
+                    <h2>u. Nacional Abierta y a Distancia</h2>
+                    <button onclick="enviarSolicitud('unad')">Enviar Solicitud</button>
+                </div>
+            </div>
+            <div class="universidad">
+                <img src="{{ url_for('static', filename='img/unisanitas.gif') }}" alt="Imagen Universidad 4">
+                <div class="contenido">
+                    <h2>Unisanitas</h2>
+                    <button onclick="enviarSolicitud('unisanitas')">Enviar Solicitud</button>
+                </div>
+            </div>
+            <div class="universidad">
+                <img src="{{ url_for('static', filename='img/lasalle.gif') }}" alt="Imagen Universidad 4">
+                <div class="contenido">
+                    <h2>U. La Salle</h2>
+                    <button onclick="enviarSolicitud('lasalle')">Enviar Solicitud</button>
+                </div>
+            </div>
+            <div class="universidad">
+                <img src="{{ url_for('static', filename='img/militar.gif') }}" alt="Imagen Universidad 4">
+                <div class="contenido">
+                    <h2>U. Militar Nueva Granada</h2>
+                    <button onclick="enviarSolicitud('militar')">Enviar Solicitud</button>
+                </div>
+            </div>
+            <div class="universidad">
+                <img src="{{ url_for('static', filename='img/catolica.gif') }}" alt="Imagen Universidad 4">
+                <div class="contenido">
+                    <h2>U. Catolica de Pereira</h2>
+                    <button onclick="enviarSolicitud('catolica')">Enviar Solicitud</button>
+                </div>
+            </div>
+            <div class="universidad">
+                <img src="{{ url_for('static', filename='img/antioquia.gif') }}" alt="Imagen Universidad 4">
+                <div class="contenido">
+                    <h2>U. Antioquia</h2>
+                    <button onclick="enviarSolicitud('Antioquia')">Enviar Solicitud</button>
+                </div>
+            </div>
+            <div class="universidad">
+                <img src="{{ url_for('static', filename='img/piloto.gif') }}" alt="Imagen Universidad 4">
+                <div class="contenido">
+                    <h2>U. Piloto</h2>
+                    <button onclick="enviarSolicitud('Piloto')">Enviar Solicitud</button>
+                </div>
+            </div>
+            <div class="universidad">
+                <img src="{{ url_for('static', filename='img/santander.gif') }}" alt="Imagen Universidad 4">
+                <div class="contenido">
+                    <h2>U. Santander</h2>
+                    <button onclick="enviarSolicitud('santander')">Enviar Solicitud</button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Script para enviar la solicitud a la universidad -->
+    <script>
+        function enviarSolicitud(nombreUniversidad) {
+            fetch('/procesar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ universidad: nombreUniversidad })  // Envia el nombre de la universidad seleccionada
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Network response was not ok. Status: ${response.status} - ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+                if (data.status === 'success') {
+                    data.resultados.forEach(universidad => {
+                        console.log(`Resultado para ${universidad.nombre}: ${universidad.resultado}`);
+                    });
+                } else {
+                    console.error('Error en el servidor:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+                alert(`Error: ${error.message}`);
+            });
+        }
+
+        // Función para actualizar el archivo Excel
+        function actualizarExcel() {
+            fetch('/actualizar_excel', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ actualizar: true })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Network response was not ok. Status: ${response.status} - ${response.statusText}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data.message);
+                alert('Archivo Excel actualizado correctamente.');
+            })
+            .catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+                alert(`Error: ${error.message}`);
+            });
+        }
+        var universidades = [
+            { nombre_universidad: 'Areandina', carrera: 'Administradores, Administración de Empresas, Negocios Internacionales, Mercadeo, Gestión de Recursos Humanos, Finanzas, Medicina, Enfermería, Fisioterapia, Nutrición, Odontología' },
+            { nombre_universidad: 'Simon Bolivar', carrera: 'Químicos, Química Orgánica, Química Inorgánica, Química Analítica, Química Física, Bioquímica, Medicina, Enfermería, Fisioterapia, Nutrición, Salud Pública' },
+            { nombre_universidad: 'U. Catolica', carrera: 'Economía, Economía Política, Economía Internacional, Economía Laboral, Economía del Desarrollo, Economía Ambiental, Medicina, Enfermería, Fisioterapia, Nutrición, Salud Pública' },
+            { nombre_universidad: 'Antonio Nariño', carrera: 'Médicos Veterinarios, Medicina Veterinaria Preventiva, Salud Animal, Medicina Veterinaria de Especies Menores, Medicina Veterinaria de Grandes Animales, Zootecnia, Medicina, Enfermería, Fisioterapia, Nutrición, Salud Pública' },
+            { nombre_universidad: 'Cooperativa', carrera: 'Administradores, Administración Financiera, Administración de Operaciones, Administración Estratégica, Administración de Proyectos, Emprendimiento, Medicina, Enfermería, Fisioterapia, Nutrición, Salud Pública' },
+            { nombre_universidad: 'Santiago', carrera: 'Economía, Economía Empresarial, Economía Social, Economía Gerencial, Economía Internacional, Economía Pública, Medicina, Enfermería, Fisioterapia, Nutrición, Salud Pública' },
+            { nombre_universidad: 'sanbuenaventura', carrera: 'Administradores, Administración de Negocios Internacionales, Administración de Empresas Turísticas, Administración de la Salud, Administración de Empresas Agropecuarias, Administración Deportiva, Medicina, Enfermería, Fisioterapia, Nutrición, Salud Pública' },
+            { nombre_universidad: 'icesi', carrera: 'Químicos, Ingeniería Química, Química Industrial, Química de Alimentos, Química Farmacéutica, Bioquímica Molecular, Medicina, Enfermería, Fisioterapia, Nutrición, Salud Pública' },
+            { nombre_universidad: 'Uao', carrera: 'Administradores, Gestión Empresarial, Gestión de Innovación, Gestión Estratégica de Recursos Humanos, Gestión Financiera, Gestión de Proyectos, Medicina, Enfermería, Fisioterapia, Nutrición, Salud Pública' },
+            { nombre_universidad: 'ElBosque', carrera: 'Economía, Economía Empresarial, Economía Internacional, Economía Ambiental, Economía del Desarrollo, Economía de la Salud, Medicina, Enfermería, Fisioterapia, Nutrición, Salud Pública' },
+            { nombre_universidad: 'Unisangil', carrera: 'Médicos Veterinarios, Medicina Veterinaria de Pequeñas Especies, Medicina Veterinaria Equina, Medicina Veterinaria de Rumiantes, Zootecnia, Producción Animal, Medicina, Enfermería, Fisioterapia, Nutrición, Salud Pública' },
+            { nombre_universidad: 'unad', carrera: 'Químicos, Química Ambiental, Química Computacional, Química de Materiales, Química Forense, Química Cuántica, Medicina, Enfermería, Fisioterapia, Nutrición, Salud Pública' },
+            { nombre_universidad: 'Unisanitas', carrera: 'Médicos Veterinarios, Medicina Veterinaria Preventiva, Medicina Veterinaria de Grandes Animales, Medicina Veterinaria de Pequeños Animales, Zootecnia, Salud Pública Veterinaria, Medicina, Enfermería, Fisioterapia, Nutrición, Salud Pública' },
+            { nombre_universidad: 'lasalle', carrera: 'Administradores, Administración Financiera, Administración de Negocios Internacionales, Administración de Empresas Turísticas, Administración de Recursos Humanos, Administración Estratégica, Medicina, Enfermería, Fisioterapia, Nutrición, Salud Pública' },
+            { nombre_universidad: 'militar', carrera: 'Administradores, Administración de Empresas, Administración Pública, Administración de la Seguridad y Defensa, Administración de Recursos Humanos, Administración Financiera, Medicina, Enfermería, Fisioterapia, Nutrición, Salud Pública' },
+            { nombre_universidad: 'catolica', carrera: 'Economía, Economía Gerencial, Economía del Desarrollo, Economía Internacional, Economía de la Innovación, Economía Ambiental, Medicina, Enfermería, Fisioterapia, Nutrición, Salud Pública' },
+            { nombre_universidad: 'antioquia', carrera: 'Químicos, Química Ambiental, Química Industrial, Química de Alimentos, Química Forense, Bioquímica, Medicina, Enfermería, Fisioterapia, Nutrición, Salud Pública' },
+            { nombre_universidad: 'piloto', carrera: 'Administradores, Administración de Empresas, Administración Financiera, Administración de Negocios Internacionales, Administración de la Salud, Administración Pública, Medicina, Enfermería, Fisioterapia, Nutrición, Salud Pública' },
+            { nombre_universidad: 'santander', carrera: 'Economía, Economía Empresarial, Economía Internacional, Economía del Desarrollo, Economía Social, Economía Ambiental, Medicina, Enfermería, Fisioterapia, Nutrición, Salud Pública' }
+        ];
+        
+        // Función para mostrar todas las universidades al cargar la página
+        function mostrarTodasUniversidades() {
+            var mosaico = document.getElementById('mosaicoUniversidades');
+            mosaico.innerHTML = '';
+            universidades.forEach(function(universidad) {
+                mosaico.innerHTML += `
+                    <div class="universidad">
+                        <img src="/static/img/${universidad.nombre_universidad.replace(/ /g, '')}.gif" alt="Imagen Universidad ${universidad.nombre_universidad}">
+                        <div class="contenido">
+                            <h2>${universidad.nombre_universidad}</h2>
+                            <p>${universidad.carrera}</p>
+                            <button onclick="enviarSolicitud('${universidad.nombre_universidad}')">Enviar Solicitud</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+         // Filtrar universidades por carrera seleccionada
+        document.getElementById('filtrarBtn').addEventListener('click', function() {
+            var carrera = document.getElementById('carreraSelect').value.toLowerCase();
+            var mosaico = document.getElementById('mosaicoUniversidades');
+            mosaico.innerHTML = '';
+            universidades.forEach(function(universidad) {
+                if (universidad.carrera.toLowerCase().includes(carrera) || carrera === '') {
+                    mosaico.innerHTML += `
+                        <div class="universidad">
+                            <img src="/static/img/${universidad.nombre_universidad.replace(/ /g, '')}.gif" alt="Imagen Universidad ${universidad.nombre_universidad}">
+                            <div class="contenido">
+                                <h2>${universidad.nombre_universidad}</h2>
+                                <p>${universidad.carrera}</p>
+                                <button onclick="enviarSolicitud('${universidad.nombre_universidad}')">Enviar Solicitud</button>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+        });
+
+        // Mostrar todas las universidades al cargar la página
+        document.addEventListener('DOMContentLoaded', function() {
+            mostrarTodasUniversidades();
+        });
+
+        // Función de ejemplo para manejar el envío de solicitudes
+        function enviarSolicitud(nombreUniversidad) {
+            alert('Solicitud enviada a ' + nombreUniversidad);
+        }
+        document.getElementById('formulario').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const nombreUniversidad = document.getElementById('universidad').value;
+
+            fetch('/procesar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ universidad: nombreUniversidad })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                alert(data.message);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Hubo un error al procesar la solicitud.');
+            });
+        });function enviarSolicitud(nombreUniversidad) {
+            fetch('/procesar', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ universidad: nombreUniversidad })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                alert(data.message);
+            })
+            .catch(error => {
+                console.error('There has been a problem with your fetch operation:', error);
+                alert(`Error: ${error.message}`);
+            });
+        }
+
+        function mostrarTodasUniversidades() {
+            const mosaico = document.getElementById('mosaicoUniversidades');
+            mosaico.innerHTML = '';
+            universidades.forEach(universidad => {
+                const div = document.createElement('div');
+                div.className = 'universidad';
+                div.innerHTML = `
+                    <img src="/static/img/${universidad.nombre_universidad.replace(/ /g, '')}.gif" alt="Imagen Universidad ${universidad.nombre_universidad}">
+                    <div class="contenido">
+                        <h2>${universidad.nombre_universidad}</h2>
+                        <p>${universidad.carrera}</p>
+                        <button onclick="enviarSolicitud('${universidad.nombre_universidad}')">Enviar Solicitud</button>
+                    </div>
+                `;
+                mosaico.appendChild(div);
+            });
+        }
+
+        document.getElementById('formulario').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const nombreUniversidad = document.getElementById('universidad').value;
+            enviarSolicitud(nombreUniversidad);
+        });
+
+        document.addEventListener('DOMContentLoaded', mostrarTodasUniversidades);
+
+        function automatizarUniversidades() {
+            fetch('/automatizar_universidades', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                // Puedes agregar aquí lógica adicional para manejar los resultados si lo deseas
+            })
+            .catch(error => {
+                console.error('Error en la automatización de universidades:', error);
+                alert('Error en la automatización de universidades. Consulta el registro para más detalles.');
+            });
+        }
+
+        function abrirExcel() {
+            fetch('/abrir_excel', {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert(data.message);
+                } else {
+                    alert('Error: ' + data.message);
+                }
+            })
+            .catch(error => {
+                alert('Error: ' + error.message);
+            });
+        }
+
+    </script>
+
+</body>
+</html>
