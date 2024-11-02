@@ -59,16 +59,42 @@
         button:hover {
             background-color: #0056b3;
         }
+
+        .custom-file-upload {
+            display: inline-block;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #007bff; /* Color de fondo */
+            color: white; /* Color del texto */
+            border-radius: 5px; /* Bordes redondeados */
+            transition: background-color 0.3s;
+        }
+
+        .custom-file-upload:hover {
+            background-color: #0056b3; /* Color de fondo al pasar el mouse */
+        }
+
+        .custom-file-upload input[type="file"] {
+            display: none; /* Oculta el input de archivo real */
+        }
     </style>
 </head>
 <body>
     <h1 style="text-align: center;">Automatización de Universidades</h1>
 
+    
+    <!-- <div style="text-align: center; margin-top: 20px;">
+        <button onclick="abrirExcel()">Abrir Excel</button>
+    </div> -->
     <!-- Botón para abrir el archivo Excel -->
     <div style="text-align: center; margin-top: 20px;">
+        <label class="custom-file-upload">
+            <input type="file" id="fileInput" accept=".xlsx" onchange="actualizarNombreArchivo()" />
+            <span>Seleccionar archivo</span>
+        </label>
+        <div id="nombreArchivo" style="margin-top: 10px; font-weight: bold;"></div>
         <button onclick="abrirExcel()">Abrir Excel</button>
     </div>
-
 
     <!-- Botón para automatizar universidades -->
     <div style="text-align: center; margin-top: 20px;">
@@ -239,6 +265,18 @@
 
     <!-- Script para enviar la solicitud a la universidad -->
     <script>
+        //actualiza el nombre del imput
+        function actualizarNombreArchivo() {
+            const fileInput = document.getElementById('fileInput');
+            const nombreArchivo = document.getElementById('nombreArchivo');
+            
+            if (fileInput.files.length > 0) {
+                nombreArchivo.textContent = fileInput.files[0].name; // Muestra el nombre del archivo
+            } else {
+                nombreArchivo.textContent = ''; // Limpia el texto si no hay archivo
+            }
+        }
+        //envia la solicitud
         function enviarSolicitud(nombreUniversidad) {
             fetch('/procesar', {
                 method: 'POST',
@@ -445,10 +483,21 @@
                 alert('Error en la automatización de universidades. Consulta el registro para más detalles.');
             });
         }
-
         function abrirExcel() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert('Por favor, selecciona un archivo Excel.');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
             fetch('/abrir_excel', {
-                method: 'POST'
+                method: 'POST',
+                body: formData
             })
             .then(response => response.json())
             .then(data => {
@@ -462,6 +511,22 @@
                 alert('Error: ' + error.message);
             });
         }
+        // function abrirExcel() {
+        //     fetch('/abrir_excel', {
+        //         method: 'POST'
+        //     })
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         if (data.status === 'success') {
+        //             alert(data.message);
+        //         } else {
+        //             alert('Error: ' + data.message);
+        //         }
+        //     })
+        //     .catch(error => {
+        //         alert('Error: ' + error.message);
+        //     });
+        // }
 
     </script>
 

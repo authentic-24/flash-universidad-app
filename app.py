@@ -765,16 +765,31 @@ def guardar_excel_actualizado():
         logger.error(f"Error al guardar el archivo Excel actualizado: {e}")
         raise e
 
+
 @app.route('/abrir_excel', methods=['POST'])
 def abrir_excel():
     try:
-        # Ruta del archivo Excel
-        excel_path = './ofertas_de_empleo.xlsx'
+        # Verifica que se haya enviado un archivo
+        if 'file' not in request.files:
+            return jsonify({'status': 'error', 'message': 'No se ha recibido ningún archivo.'})
+
+        file = request.files['file']
+
+        # Verifica que el archivo tenga una extensión válida
+        if file.filename == '' or not file.filename.endswith('.xlsx'):
+            return jsonify({'status': 'error', 'message': 'El archivo no es válido. Debe ser un archivo .xlsx.'})
+
+        # Guardar el archivo en una ruta temporal
+        excel_path = './temp_' + file.filename
+        file.save(excel_path)
+
         # Abre el archivo Excel
         os.system(f'start EXCEL.EXE "{os.path.abspath(excel_path)}"')
+
         return jsonify({'status': 'success', 'message': 'Archivo Excel abierto correctamente.'})
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)})
+
     
 @app.route('/automatizar_universidades', methods=['POST'])
 def automatizar_universidades():
@@ -845,4 +860,4 @@ def automatizar_universidades():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=True, port=int(os.environ.get("PORT", 8080)))
+    app.run(host='0.0.0.0', debug=True, port=int(os.environ.get("PORT", 8180)))
